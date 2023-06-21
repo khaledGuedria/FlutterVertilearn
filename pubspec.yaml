@@ -41,6 +41,8 @@ dependencies:
   path_provider: ^2.0.15
   #SP
   shared_preferences: ^2.1.2
+  #Dio : HTTP
+  dio: ^5.2.1+1
 
 dev_dependencies:
   flutter_test:

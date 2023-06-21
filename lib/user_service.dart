@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
+import 'package:dio/dio.dart';
 import 'package:hivedio/user.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -27,7 +28,7 @@ class UserService {
     Box userBox = await Hive.openBox("userBox");
     userBox.add(u);
     for (User item in userBox.values.toList()) {
-      print("${item.name} - ${item.age}");
+      print("${item.name} - ${item.email}");
     }
     //userBox.close();
     // });
@@ -41,7 +42,34 @@ class UserService {
             : print("Something Wrong!")));
   }
 
-  //2 : Fetch
-
   //DIO
+  //1 GET
+  Future<List<User>> fetchAllUsers() async {
+    //var
+    List<User> users = [];
+    //1 : URL
+    var url = "https://business1.onrender.com/users";
+
+    //2
+    var headers = {
+      'Content-Type' : 'application/json'
+      //'Authorization' : 'Bearer $token'
+    } ;
+
+    var userObject = {
+      'fullname' : ''
+      //'Authorization' : 'Bearer $token'
+    } ;
+
+    //3
+    await Dio().get(url, options: Options(headers: headers), onReceiveProgress: (count, total) => print(count),).then((response){
+      if(response.statusCode == 200){
+        List<dynamic> usersList = response.data;
+        for (var element in usersList) {
+          users.add(User(name: element['fullname'], email: element['email']));
+        }
+      }
+    });
+    return users;
+  }
 }

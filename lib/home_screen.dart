@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hivedio/user.dart';
+import 'package:hivedio/user_item.dart';
 import 'package:hivedio/user_service.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -17,12 +18,14 @@ class HomeScreen extends StatelessWidget {
         ],
       ),
       body: FutureBuilder(
-        future: UserService().getString(),
+        future: UserService().fetchAllUsers(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            return Center(
-              child: Text(snapshot.data!),
-            );
+            return ListView.builder(
+              itemCount: snapshot.data!.length,
+              itemBuilder: (context, index) {
+              return UserItem(snapshot.data![index]);
+            },);
           } else {
             return const Center(
               child: CircularProgressIndicator(),

@@ -18,7 +18,7 @@ class UserAdapter extends TypeAdapter<User> {
     };
     return User(
       name: fields[0] as String,
-      age: fields[1] as int,
+      email: fields[1] as String,
     );
   }
 
@@ -29,7 +29,7 @@ class UserAdapter extends TypeAdapter<User> {
       ..writeByte(0)
       ..write(obj.name)
       ..writeByte(1)
-      ..write(obj.age);
+      ..write(obj.email);
   }
 
   @override

@@ -8,7 +8,7 @@ class User extends HiveObject{
   @HiveField(0)
   final String name;
   @HiveField(1)
-  final int age;
+  final String email;
 
-  User({required this.name, required this.age});
+  User({required this.name, required this.email});
 }
