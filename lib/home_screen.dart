@@ -12,7 +12,7 @@ class HomeScreen extends StatelessWidget {
         title: const Text("Day 2"),
         actions: [
           IconButton(onPressed: () async {
-            await UserService().addToHive(User(name: "Khaled", age: 30)).then((value) => ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Saved successfully!"))));
+            await UserService().addToSP().then((value) => ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Saved successfully!"))));
           }, icon:const Icon(Icons.add))
         ],
       ),
