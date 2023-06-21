@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hivedio/blocs/counter_bloc/counter_bloc.dart';
+import 'package:hivedio/counter_screen.dart';
 import 'package:hivedio/home_screen.dart';
 import 'package:hivedio/user_service.dart';
 
@@ -28,7 +31,11 @@ class _MyAppState extends State<MyApp> {
       theme: ThemeData(
         primarySwatch: Colors.deepPurple,
       ),
-      home: const HomeScreen(),
+      home:  MultiBlocProvider(
+        providers: [
+          BlocProvider(create: (context) => CounterBloc(),)
+        ],
+        child: const CounterScreen()),
     );
   }
 }
