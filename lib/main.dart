@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hivedio/blocs/counter_bloc/counter_bloc.dart';
+import 'package:hivedio/blocs/users_bloc/users_bloc.dart';
+import 'package:hivedio/blocs/users_bloc/users_bloc_events.dart';
 import 'package:hivedio/counter_screen.dart';
 import 'package:hivedio/home_screen.dart';
 import 'package:hivedio/user_service.dart';
@@ -33,9 +35,10 @@ class _MyAppState extends State<MyApp> {
       ),
       home:  MultiBlocProvider(
         providers: [
-          BlocProvider(create: (context) => CounterBloc(),)
+          BlocProvider(create: (context) => CounterBloc()),
+          BlocProvider(create: (context) => UserBloc()..add(UsersBlocLoadEvent()),)
         ],
-        child: const CounterScreen()),
+        child: const HomeScreen()),
     );
   }
 }

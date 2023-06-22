@@ -1,8 +1,9 @@
-import 'package:flutter/material.dart';
+import 'dart:io';
+
 import 'package:hive/hive.dart';
-import 'package:dio/dio.dart';
 import 'package:hivedio/user.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:dio/dio.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class UserService {
@@ -12,7 +13,6 @@ class UserService {
     return "Hello Orange!";
   }
   //HIVE
-
   //0 : Hive init
   Future<void> initHive() async {
     await getApplicationDocumentsDirectory().then((dir) {
@@ -56,20 +56,17 @@ class UserService {
       //'Authorization' : 'Bearer $token'
     } ;
 
-    var userObject = {
-      'fullname' : ''
-      //'Authorization' : 'Bearer $token'
-    } ;
-
     //3
-    await Dio().get(url, options: Options(headers: headers), onReceiveProgress: (count, total) => print(count),).then((response){
+    await Dio().get(url, options: Options(headers: headers)).then((response){
       if(response.statusCode == 200){
         List<dynamic> usersList = response.data;
         for (var element in usersList) {
-          users.add(User(name: element['fullname'], email: element['email']));
+          String name = element['fullname'] ?? "N/A";
+          String email = element['email'] ?? "N/A";
+          users.add(User(name: name, email: email));
         }
       }
-    });
+     });      
     return users;
   }
 }
