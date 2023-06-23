@@ -1,6 +1,10 @@
-# day3_exemple
+# day4_exemple
 
 A new Flutter project.
+
+## Try to generate product.g.dart throught
+
+flutter pub run build_runner build
 
 ## Getting Started
 
