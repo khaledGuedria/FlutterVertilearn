@@ -9,7 +9,9 @@ class ProductService {
     await getApplicationDocumentsDirectory()
         .then((dir) async => Hive.init(dir.path))
         .then((v) {
-      Hive.registerAdapter(ProductAdapter());
+      if (!Hive.isAdapterRegistered(0)) {
+        Hive.registerAdapter(ProductAdapter());
+      }
     });
   }
 
